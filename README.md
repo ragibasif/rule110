@@ -22,14 +22,14 @@ Make sure you have `gcc` and `make` installed.
 make
 ```
 
-### Clean build files
-
-```bash
-make clean
-```
-
 ### Run the executable
 
 ```bash
 ./rule110
+```
+
+### Clean build files
+
+```bash
+make clean
 ```

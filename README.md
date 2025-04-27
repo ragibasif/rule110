@@ -2,15 +2,9 @@
 
 An implementation [Rule 110](https://en.wikipedia.org/wiki/Rule_110) of written in standard C (C99) and uses GNU Make for building.
 
-![Rule 110 Demo](./docs/rule110-demo.png)
+<img src="./docs/rule110-demo.png" alt="rule110-demo" width="200" height="400"/>
 
 ## Usage
-
-To use the library in your project, include the header file.
-
-```c
-#include "rule110.h"
-```
 
 ### Installation
 

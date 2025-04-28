@@ -1,4 +1,4 @@
-// rule110.h
+// rule110.c
 // https://en.wikipedia.org/wiki/Rule_110
 //
 // Rules:
@@ -18,18 +18,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
-
-enum Rule {
-    ZERO = false,
-    ONE = true,
-    TWO = true,
-    THREE = true,
-    FOUR = false,
-    FIVE = true,
-    SIX = true,
-    SEVEN = false
-};
 
 #define MAX_BUFFER_SIZE 32
 
@@ -69,6 +57,7 @@ bool check_last_three_bits(unsigned int n) {
     }
     return result;
 }
+
 unsigned int reverse_bits(unsigned int n) {
     unsigned int result = n;
     int size = sizeof(n) * CHAR_BIT - 1; // extra shift needed at the end

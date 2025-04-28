@@ -33,9 +33,9 @@ enum Rule {
 
 #define MAX_BUFFER_SIZE 32
 
-int buffer[MAX_BUFFER_SIZE] = {0};
+static int buffer[MAX_BUFFER_SIZE] = {0};
 
-bool check_last_three_bits(unsigned int n) {
+static bool check_last_three_bits(unsigned int n) {
     unsigned int mask = (1 << 3) - 1;
     unsigned int last_3_bits = n & mask;
     bool result = true;
@@ -70,7 +70,7 @@ bool check_last_three_bits(unsigned int n) {
     return result;
 }
 
-unsigned int reverse_bits(unsigned int n) {
+static unsigned int reverse_bits(unsigned int n) {
     unsigned int result = n;
     int size = sizeof(n) * CHAR_BIT - 1; // extra shift needed at the end
     for (n >>= 1; n; n >>= 1) {
@@ -82,7 +82,7 @@ unsigned int reverse_bits(unsigned int n) {
     return result;
 }
 
-unsigned int get_next(unsigned int n) {
+static unsigned int get_next(unsigned int n) {
     unsigned int result = 0;
     while (n) {
         if (check_last_three_bits(n)) {
@@ -99,25 +99,27 @@ unsigned int get_next(unsigned int n) {
     return result;
 }
 
-void set_buffer(unsigned int n) {
+static void set_buffer(unsigned int n) {
     memset(buffer, 0, MAX_BUFFER_SIZE);
     size_t i;
     i = MAX_BUFFER_SIZE - 1;
-    while (n && i >= 0) {
+    while (n) {
         buffer[i--] = n & 1;
         n >>= 1;
     }
 }
 
-void display_buffer(void) {
+static void display_buffer(void) {
     size_t i;
     for (i = 0; i < MAX_BUFFER_SIZE; i++) {
         if (buffer[i]) {
-            putchar('X');
-            putchar('X');
+            // printf('X');
+            // printf("#");
+            printf("██");
         } else {
-            putchar('-');
-            putchar('-');
+            // printf(' ');
+            // printf(".");
+            printf("░░");
         }
     }
     putchar('\n');
@@ -130,8 +132,10 @@ static const unsigned int PATTERNS[10] = {
 int main(int argc, char **argv) {
     (void)argc;
     (void)argv;
-    int repeat = 32;
-    unsigned int n = PATTERNS[1];
+    unsigned int repeat;
+    unsigned int n;
+    repeat = 32;
+    n = PATTERNS[1];
     set_buffer(n);
     while (repeat--) {
         display_buffer();

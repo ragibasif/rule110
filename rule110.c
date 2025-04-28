@@ -1,4 +1,5 @@
 // rule110.c
+
 // https://en.wikipedia.org/wiki/Rule_110
 //
 // Rules:
@@ -13,11 +14,22 @@
 // 1 -> 1
 // 0 -> 0
 
-#include "rule110.h"
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+
+enum Rule {
+    ZERO = false,
+    ONE = true,
+    TWO = true,
+    THREE = true,
+    FOUR = false,
+    FIVE = true,
+    SIX = true,
+    SEVEN = false
+};
 
 #define MAX_BUFFER_SIZE 32
 
@@ -90,9 +102,9 @@ unsigned int get_next(unsigned int n) {
 void set_buffer(unsigned int n) {
     memset(buffer, 0, MAX_BUFFER_SIZE);
     size_t i;
-    i = 0;
-    while (n && i < MAX_BUFFER_SIZE) {
-        buffer[i++] = n & 1;
+    i = MAX_BUFFER_SIZE - 1;
+    while (n && i >= 0) {
+        buffer[i--] = n & 1;
         n >>= 1;
     }
 }
@@ -102,21 +114,28 @@ void display_buffer(void) {
     for (i = 0; i < MAX_BUFFER_SIZE; i++) {
         if (buffer[i]) {
             putchar('X');
+            putchar('X');
         } else {
-            putchar(' ');
+            putchar('-');
+            putchar('-');
         }
     }
     putchar('\n');
 }
 
+static const unsigned int PATTERNS[10] = {
+    0x1C000000, 0xAA000000, 0x36000000, 0x7E000000, 0x1FF00000,
+    0x80000000, 0x3FF00000, 0x1F700000, 0x5A5A0000, 0x81800000};
+
 int main(int argc, char **argv) {
     (void)argc;
     (void)argv;
     int repeat = 32;
-    unsigned int n = 0x80000000;
+    unsigned int n = PATTERNS[1];
     set_buffer(n);
     while (repeat--) {
         display_buffer();
+        usleep(100 * 1000);
         n = get_next(n);
         set_buffer(n);
     }

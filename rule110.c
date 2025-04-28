@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
     unsigned int repeat;
     unsigned int n;
     repeat = 32;
-    n = PATTERNS[1];
+    n = PATTERNS[7];
     set_buffer(n);
     while (repeat--) {
         display_buffer();

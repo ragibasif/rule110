@@ -2,7 +2,7 @@
 
 An implementation [Rule 110](https://en.wikipedia.org/wiki/Rule_110) of written in standard C (C99) and uses GNU Make for building.
 
-<img src="./docs/demo.gif" alt="rule110-demo" width="800" height="800"/>
+<img src="./docs/rule110-demo0.gif" alt="rule110-demo-0" width="800" height="800"/>
 
 ## Usage
 

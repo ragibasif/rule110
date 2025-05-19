@@ -1,4 +1,5 @@
 // rule110.c
+#include "AEC.h"
 
 // https://en.wikipedia.org/wiki/Rule_110
 //
@@ -17,7 +18,9 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h> // For rand() and srand()
 #include <string.h>
+#include <time.h> // For time()
 #include <unistd.h>
 
 enum Rule {
@@ -30,6 +33,13 @@ enum Rule {
     SIX = true,
     SEVEN = false
 };
+
+#define AEC_RESET "\x1b[0m"
+
+static char *color_buffer[6] = {AEC_RED,  AEC_GREEN,   AEC_YELLOW,
+                                AEC_BLUE, AEC_MAGENTA, AEC_CYAN};
+
+#define AEC_DEFAULT "\x1b[39m"
 
 #define MAX_BUFFER_SIZE 32
 
@@ -113,13 +123,11 @@ static void display_buffer(void) {
     size_t i;
     for (i = 0; i < MAX_BUFFER_SIZE; i++) {
         if (buffer[i]) {
-            // printf('X');
-            // printf("#");
-            printf("██");
+            int random_num = rand() % 6;
+            printf("%s██%s", color_buffer[random_num], AEC_RESET);
         } else {
-            // printf(' ');
-            // printf(".");
-            printf("░░");
+            // printf("%s░░%s", AEC_DEFAULT, AEC_RESET);
+            printf("%s  %s", AEC_DEFAULT, AEC_RESET);
         }
     }
     putchar('\n');
@@ -134,8 +142,9 @@ int main(int argc, char **argv) {
     (void)argv;
     unsigned int repeat;
     unsigned int n;
+    srand(time(0));
     repeat = 32;
-    n = PATTERNS[7];
+    n = PATTERNS[0];
     set_buffer(n);
     while (repeat--) {
         display_buffer();

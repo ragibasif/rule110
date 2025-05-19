@@ -2,7 +2,7 @@
 
 An implementation of [Rule 110](https://en.wikipedia.org/wiki/Rule_110) written in standard C (C99) and uses GNU Make for building.
 
-<img src="./docs/rule110-demo0.gif" alt="rule110-demo-0" width="800" height="800"/>
+<img src="./docs/demo.gif" alt="rule110-demo" width="800" height="800"/>
 
 ## Usage
 
@@ -10,7 +10,7 @@ An implementation of [Rule 110](https://en.wikipedia.org/wiki/Rule_110) written 
 
 Clone the repository.
 
-```bash
+```sh
 git clone git@github.com:ragibasif/rule110.git
 ```
 
@@ -18,18 +18,18 @@ Make sure you have `gcc` and `make` installed.
 
 ### Build the project
 
-```bash
+```sh
 make
 ```
 
 ### Run the executable
 
-```bash
+```sh
 ./rule110
 ```
 
 ### Clean build files
 
-```bash
+```sh
 make clean
 ```

@@ -1,5 +1,4 @@
 // rule110.c
-#include "AEC.h"
 
 // https://en.wikipedia.org/wiki/Rule_110
 //
@@ -15,6 +14,7 @@
 // 1 -> 1
 // 0 -> 0
 
+#include "AEC.h"
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -22,6 +22,13 @@
 #include <string.h>
 #include <time.h> // For time()
 #include <unistd.h>
+
+static char *color_buffer[6] = {AEC_RED,  AEC_GREEN,   AEC_YELLOW,
+                                AEC_BLUE, AEC_MAGENTA, AEC_CYAN};
+
+#define MAX_BUFFER_SIZE 32
+
+static int buffer[MAX_BUFFER_SIZE] = {0};
 
 enum Rule {
     ZERO = false,
@@ -34,50 +41,26 @@ enum Rule {
     SEVEN = false
 };
 
-#define AEC_RESET "\x1b[0m"
+enum pattern {
+    B_000 = 0,
+    B_001 = 1,
+    B_010 = 2,
+    B_011 = 3,
+    B_100 = 4,
+    B_101 = 5,
+    B_110 = 6,
+    B_111 = 7,
+};
 
-static char *color_buffer[6] = {AEC_RED,  AEC_GREEN,   AEC_YELLOW,
-                                AEC_BLUE, AEC_MAGENTA, AEC_CYAN};
-
-#define AEC_DEFAULT "\x1b[39m"
-
-#define MAX_BUFFER_SIZE 32
-
-static int buffer[MAX_BUFFER_SIZE] = {0};
+bool rule110[] = {
+    [B_000] = ZERO, [B_001] = ONE,  [B_010] = TWO, [B_011] = THREE,
+    [B_100] = FOUR, [B_101] = FIVE, [B_110] = SIX, [B_111] = SEVEN,
+};
 
 static bool check_last_three_bits(unsigned int n) {
     unsigned int mask = (1 << 3) - 1;
     unsigned int last_3_bits = n & mask;
-    bool result = true;
-    switch (last_3_bits) {
-    case 0:
-        result = ZERO;
-        break;
-    case 1:
-        result = ONE;
-        break;
-    case 2:
-        result = TWO;
-        break;
-    case 3:
-        result = THREE;
-        break;
-    case 4:
-        result = FOUR;
-        break;
-    case 5:
-        result = FIVE;
-        break;
-    case 6:
-        result = SIX;
-        break;
-    case 7:
-        result = SEVEN;
-        break;
-    default:
-        break;
-    }
-    return result;
+    return rule110[n & last_3_bits];
 }
 
 static unsigned int reverse_bits(unsigned int n) {

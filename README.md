@@ -1,6 +1,7 @@
 # Rule 110
 
-An implementation of [Rule 110](https://en.wikipedia.org/wiki/Rule_110) written in C.
+An implementation of [Rule 110](https://en.wikipedia.org/wiki/Rule_110) written
+in C for **educational and recreational purposes.**
 
 <img src="./docs/demo.gif" alt="rule110-demo" width="800" height="800"/>
 
